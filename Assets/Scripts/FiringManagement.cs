@@ -20,11 +20,17 @@ public class FiringManagement : MonoBehaviour {
     float heat = 0;
     public Slider slider;
 
+    public GameObject Bullet;
+    public GameObject BigBullet;
+
 	// Use this for initialization
 	void Start () {
 		fire = new UnityEvent();
         fire.AddListener(SetSlider);
-	}
+        fire.AddListener(Fire);
+        fire.AddListener(SetGunState);
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -41,8 +47,8 @@ public class FiringManagement : MonoBehaviour {
 		while (firing)
 		{
             
-			fire.Invoke();
-            SetGunState();
+            fire.Invoke();
+            
             yield return new WaitForSeconds(ModeToWeaponCoolDownTime(gunState));
 
 			firing = Input.GetKey(KeyCode.K);
@@ -66,6 +72,33 @@ public class FiringManagement : MonoBehaviour {
         else
         {
             return 0.3f;
+        }
+    }
+
+    void Fire()
+    {
+        GameObject temp;
+        if(gunState == GunState.Normal)
+        {
+            temp = Instantiate(Bullet, transform.position + transform.right, Quaternion.identity);
+        }
+        else
+        {
+            temp = Instantiate(BigBullet, transform.position + transform.right, Quaternion.identity);
+        }
+        AccelerateShot(temp);
+    }
+
+    void AccelerateShot(GameObject gameObject)
+    {
+        Rigidbody2D rb2d = gameObject.GetComponent<Rigidbody2D>();
+        if (gunState == GunState.Normal)
+        {
+            rb2d.AddForce(transform.right, ForceMode2D.Impulse);
+        }
+        else
+        {
+            rb2d.AddForce(transform.right *3f, ForceMode2D.Impulse);
         }
     }
 
