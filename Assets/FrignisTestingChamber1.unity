@@ -169,6 +169,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1621947450233224, guid: 6e981f51312c4d142a899f6f4430d8d5,
         type: 2}
+    - target: {fileID: 114293001304139918, guid: d1894c46770c528479a0ec2502304715,
+        type: 2}
+      propertyPath: FireKey
+      value: 32
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d1894c46770c528479a0ec2502304715, type: 2}
   m_IsPrefabParent: 0

@@ -11,6 +11,7 @@ public enum GunState
 }
 
 public class FiringManagement : MonoBehaviour {
+	public KeyCode FireKey;
 	public UnityEvent fire;
 	bool firing = false;
 
@@ -26,15 +27,16 @@ public class FiringManagement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		fire = new UnityEvent();
-        fire.AddListener(SetSlider);
         fire.AddListener(Fire);
-        fire.AddListener(SetGunState);
+		fire.AddListener(SetGunState);
+		fire.AddListener(SetSlider);
+		
         
     }
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.K) && !firing)
+		if (Input.GetKeyDown(FireKey) && !firing)
 		{
 			StartCoroutine(AutoFire(ModeToWeaponCoolDownTime(gunState)));
 		}
@@ -51,7 +53,7 @@ public class FiringManagement : MonoBehaviour {
             
             yield return new WaitForSeconds(ModeToWeaponCoolDownTime(gunState));
 
-			firing = Input.GetKey(KeyCode.K);
+			firing = Input.GetKey(FireKey);
 
 		}
 
