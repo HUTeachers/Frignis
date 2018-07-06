@@ -25,7 +25,7 @@ public class FiringManagement : MonoBehaviour {
     public GameObject BigBullet;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		fire = new UnityEvent();
         fire.AddListener(Fire);
 		fire.AddListener(SetGunState);
